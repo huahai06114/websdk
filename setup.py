@@ -27,7 +27,8 @@ setup(
         'aliyun-python-sdk-dysmsapi',
         'python-dateutil==2.7.5',
         'ldap3==2.6',
-        'pycryptodome'
+        'pycryptodome',
+        'werkzeug',
     ],
     author='阿慕路泽',
     author_email='314901758@qq.com',
