@@ -6,8 +6,7 @@
 from wtforms import Form
 from wtforms import PasswordField, StringField, IntegerField
 from wtforms.validators import DataRequired, Regexp, EqualTo, Optional
-from .exceptions import ParameterException
-
+from app.sdk.exceptions import ParameterError
 
 class WTForm(Form):
 
@@ -18,7 +17,7 @@ class WTForm(Form):
         valid = super(WTForm, self).validate()
         if not valid:
             print(self.errors)
-            raise ParameterException(data=self.errors)
+            raise ParameterError('parameter error')
         return self
 
 

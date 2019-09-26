@@ -46,13 +46,10 @@ def get_db_url(dbkey):
 
 
 class DBContext(object):
-    def __init__(self, rw='r', db_key=None, need_commit=False, **settings):
+    def __init__(self, db_key=None, need_commit=False, **settings):
         self.__db_key = db_key
         if not self.__db_key:
-            if rw == 'w':
                 self.__db_key = const.DEFAULT_DB_KEY
-            elif rw == 'r':
-                self.__db_key = const.READONLY_DB_KEY
         engine = self.__get_db_engine(self.__db_key, **settings)
         self.__engine = engine
         self.need_commit = need_commit

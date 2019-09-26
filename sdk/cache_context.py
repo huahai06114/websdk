@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
     Author: 阿慕路泽
-    Description：
+    Description：缓存连接
 """
 import redis
 from .consts import const

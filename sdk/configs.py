@@ -34,16 +34,8 @@ class Config(dict):
     def __init_default(self):
         self['debug'] = True
         self['autoreload'] = True
-        self['SECRET_KEY'] = "robot"
         self[const.DB_CONFIG_ITEM] = {
             const.DEFAULT_DB_KEY: {
-                const.DBHOST_KEY: '',
-                const.DBPORT_KEY: 3306,
-                const.DBUSER_KEY: '',
-                const.DBPWD_KEY: '',
-                const.DBNAME_KEY: '',
-            },
-            const.READONLY_DB_KEY: {
                 const.DBHOST_KEY: '',
                 const.DBPORT_KEY: 3306,
                 const.DBUSER_KEY: '',

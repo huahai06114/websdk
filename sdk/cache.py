@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """
     Author: 阿慕路泽
-    Description：
+    Description：缓存操作类
 """
 import base64
 import json
-import pickle
-from .consts import const
-
 import redis
 from shortuuid import uuid
+
+from .consts import const
 from .configs import configs as my_configs
 from .tools import singleton, bytes_to_unicode, convert
 
@@ -19,12 +18,15 @@ class Cache(object):
     def __init__(self):
         self.__redis_connections = {}
         redis_configs = my_configs[const.REDIS_CONFIG_ITEM]
+
+        # redis 连接
         for config_key, redis_config in redis_configs.items():
             auth = redis_config[const.RD_AUTH_KEY]
             host = redis_config[const.RD_HOST_KEY]
             port = redis_config[const.RD_PORT_KEY]
             db = redis_config[const.RD_DB_KEY]
             return_utf8 = False
+
             if const.RD_DECODE_RESPONSES in redis_config:
                 return_utf8 = redis_config[const.RD_DECODE_RESPONSES]
             password = redis_config[const.RD_PASSWORD_KEY]
@@ -37,6 +39,7 @@ class Cache(object):
 
         self.__salt = str(uuid())
 
+    # 设置 String 类型的 key-value
     def set(self, key, value, expire=-1, conn_key=const.DEFAULT_RD_KEY, private=True, pipeline=None):
         real_key = self.__get_key(key, private)
         execute_main = self.__get_execute_main(conn_key, pipeline)
@@ -45,6 +48,7 @@ class Cache(object):
         else:
             execute_main.set(real_key, value)
 
+    # 设置 String 类型的 key-value， value 是个序列
     def set_json(self, key, value, expire=-1, conn_key=const.DEFAULT_RD_KEY, private=True, pipeline=None):
         value = json.dumps(value)
         value = base64.b64encode(value.encode('utf-8'))

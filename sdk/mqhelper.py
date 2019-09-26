@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 """
     Author: 阿慕路泽
-    Description：
+    Description：rabbitMQ 操作类
 """

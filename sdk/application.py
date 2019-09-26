@@ -9,7 +9,7 @@ from tornado import options as tnd_options
 from tornado.options import options, define
 from tornado.web import Application as tornadoApp
 
-from .logger import Logger
+from .logger import Log
 from .configs import configs
 
 
@@ -24,31 +24,35 @@ class Application(tornadoApp):
         定制 Tornado Application 集成日志、sqlalchemy 等功能
     """
 
-    def __init__(self, **settings):
+    def __init__(self, handlers=None, default_host="", transforms=None, **settings):
         tnd_options.parse_command_line()
         if configs.can_import:
             configs.import_dict(**settings)
-        Logger.info('%s' % options.progid)
-        super(Application, self).__init__(**settings)
+        Log.term_log('info', '%s' % options.progid)
+
+        super(Application, self).__init__(handlers, default_host, transforms)
+        print("addr: {}, port: {}".format(options.addr, options.port))
+        print("-==========> ", configs.items())
 
         http_server = httpserver.HTTPServer(self)
         http_server.listen(options.port, address=options.addr)
         self.io_loop = ioloop.IOLoop.instance()
 
-    def start_request(self):
+    def start_server(self):
         """
             启动 tornado 服务
         """
         try:
-            Logger.info('progressid: %(progid)s' % dict(progid=options.progid))
-            Logger.info('server address: %(addr)s:%(port)d' % dict(addr=options.addr, port=options.port))
-            Logger.info('web server start sucessfuled.')
+            print("############")
+            Log.term_log('info', 'server address: %(addr)s:%(port)d' % dict(addr=options.addr, port=options.port))
+            Log.term_log('info', 'web server start sucessfuled.')
+            print("web server start")
             self.io_loop.start()
         except KeyboardInterrupt:
             self.io_loop.stop()
         except:
             import traceback
-            Logger.error('%(tra)s' % dict(tra=traceback.format_exc()))
+            Log.term_log('error', '%(tra)s' % dict(tra=traceback.format_exc()))
 
 
 if __name__ == '__main__':
