@@ -8,6 +8,7 @@ from wtforms import PasswordField, StringField, IntegerField
 from wtforms.validators import DataRequired, Regexp, EqualTo, Optional
 from app.sdk.exceptions import ParameterError
 
+
 class WTForm(Form):
 
     def __init__(self, data, args):
@@ -19,38 +20,6 @@ class WTForm(Form):
             print(self.errors)
             raise ParameterError('parameter error')
         return self
-
-
-# 注册校验
-class RegisterForm(WTForm):
-    username = StringField('username', validators=[
-        DataRequired('用户名不可为空')
-    ])
-    password = PasswordField('password', validators=[
-        DataRequired(message="新密码不能为空"),
-        Regexp(r'^[A-Za-z0-9_*&$#@]{6,22}$', message="密码长度必须在6~22位之间，包含字符、数字和 _ "),
-        EqualTo('confirm_password', message="两次输入的密码不一致，请输入相同的密码")
-    ])
-    confirm_password = PasswordField('confirm_password', validators=[
-        DataRequired(message="请确认密码")
-    ])
-    email = StringField('email', validators=[
-        Regexp(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$', message='电子邮箱不符合规范，请输入正确的邮箱'),
-        Optional()
-    ])
-    right = IntegerField('right', validators=[
-        Optional()
-    ])
-
-
-# 注销、登录、登出校验
-class LoginForm(WTForm):
-    username = StringField('username', validators=[
-        DataRequired('用户名不可为空')
-    ])
-    password = PasswordField('password', validators=[
-        DataRequired(message="密码不能为空"),
-    ])
 
 
 # 更新密码校验
@@ -92,14 +61,3 @@ class UpdateEmailForm(WTForm):
         DataRequired('邮箱不可为空'),
         Regexp(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$', message='电子邮箱不符合规范，请输入正确的邮箱')
     ])
-
-
-# 测试参数校验
-class TestForm(WTForm):
-    username = StringField('username', validators=[
-        DataRequired('用户名不可为空')
-    ])
-    password = PasswordField('password', validators=[
-        DataRequired(message="密码不能为空"),
-    ])
-

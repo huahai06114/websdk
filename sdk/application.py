@@ -30,7 +30,7 @@ class Application(tornadoApp):
             configs.import_dict(**settings)
         Log.term_log('info', '%s' % options.progid)
 
-        super(Application, self).__init__(handlers, default_host, transforms)
+        super(Application, self).__init__(handlers, default_host, transforms, **settings)
         print("addr: {}, port: {}".format(options.addr, options.port))
         print("-==========> ", configs.items())
 

@@ -40,3 +40,19 @@ const.RD_CHARSET_KEY = 'charset'
 const.RD_DECODE_RESPONSES = 'decode_responses'
 const.RD_PASSWORD_KEY = 'password'
 const.DEFAULT_RD_KEY = 'default'
+
+# app settings
+const.APP_SETTINGS = 'APP_SETTINGS'
+
+# all user info
+const.USERS_INFO = 'USERS_INFO'
+
+# e-mail
+const.EMAIL_SUBJECT_PREFIX = "EMAIL_SUBJECT_PREFIX"
+const.EMAIL_HOST = "EMAIL_HOST"
+const.EMAIL_PORT = "EMAIL_PORT"
+const.EMAIL_HOST_USER = "EMAIL_HOST_USER"
+const.EMAIL_HOST_PASSWORD = "EMAIL_HOST_PASSWORD"
+const.EMAIL_USE_SSL = "EMAIL_USE_SSL"
+const.EMAIL_USE_TLS = "EMAIL_USE_TLS"
+

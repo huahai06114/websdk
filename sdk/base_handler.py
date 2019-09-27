@@ -22,17 +22,17 @@ class BaseHandler(RequestHandler):
         # 验证客户端 CSRF， 如请求为 get，则不验证，否则验证，最后写入新的 key
         # CSRF: 跨站请求伪造
         # 验证客户端CSRF，如请求为GET，则不验证，否则验证。最后将写入新的key
-        cache = get_cache()
-        if self.request.method not in ("GET", "HEAD", "OPTIONS"):
-            csrf_key = self.get_cookie('csrf_key')
-            pipeline = cache.get_pipeline()
-            result = cache.get(csrf_key, private=False, pipeline=pipeline)
-            cache.delete(csrf_key, private=False, pipeline=pipeline)
-            if result != '1':
-                raise HTTPError(402, 'csrf error')
-
-        cache.set(self.new_csrf_key, 1, expire=1800, private=False)
-        self.set_cookie('csrf_key', self.new_csrf_key)
+        # cache = get_cache()
+        # if self.request.method not in ("GET", "HEAD", "OPTIONS"):
+        #     csrf_key = self.get_cookie('csrf_key')
+        #     pipeline = cache.get_pipeline()
+        #     result = cache.get(csrf_key, private=False, pipeline=pipeline)
+        #     cache.delete(csrf_key, private=False, pipeline=pipeline)
+        #     if result != '1':
+        #         raise HTTPError(402, 'csrf error')
+        #
+        # cache.set(self.new_csrf_key, 1, expire=1800, private=False)
+        # self.set_cookie('csrf_key', self.new_csrf_key)
 
         ### 登陆验证
         auth_key = self.get_cookie('auth_key', None)
