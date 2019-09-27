@@ -6,7 +6,7 @@
 from wtforms import Form
 from wtforms import PasswordField, StringField, IntegerField
 from wtforms.validators import DataRequired, Regexp, EqualTo, Optional
-from app.sdk.exceptions import ParameterError
+from .exceptions import ParameterError
 
 
 class WTForm(Form):
